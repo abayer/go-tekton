@@ -2,8 +2,10 @@ buildPack: go
 pipelineConfig:
   pipelines:
     pullRequest:
-      build:
-        preSteps:
-        - sh: echo "staring build"
-        steps:
-        - sh: echo "build finished succesfully"
+      pipeline:
+        agent:
+          image: jenkinsxio/builder-go:0.1.268
+        stages:
+          - name: tests
+            steps:
+              - command: make test
