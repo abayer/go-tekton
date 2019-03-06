@@ -6,6 +6,15 @@ pipelineConfig:
         agent:
           image: jenkinsxio/builder-go:0.1.268
         stages:
-          - name: tests
+          - name: ci
             steps:
-              - command: make test
+              - name: tests
+                image: jenkinsxio/builder-go:0.1.268
+                command: make
+                args: ['test']
+                workingDir: "/workspace/workspace"
+                env:
+                  - name: GOPATH
+                    value: /workspace/go
+                  - name: HELM_HOME
+                    value: /builder/home/.helm
